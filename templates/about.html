@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'layout.html' %}
+{% block title%}
 	{% if title %}
 		<title>about-{{title}}</title>
 	{% else %}
 		<title>about page</title>
 	{% endif %}
-</head>
-<body>
-
-</body>
-</html>
+{% endblock title %}
+{% block content %}
+	<h1>welcome to about page</h1>
+	<p>hi..user. How do you do?</p>
+{% endblock content%}

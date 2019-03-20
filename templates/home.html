@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends 'layout.html' %}
+{% block title%}
 	{% if title %}
 		<title>home-page-{{title}}</title>
 	{% else %}
 		<title>home page</title>
 	{% endif %}
-</head>
-<body>
- <p>this is home page of this app</p>
-</body>
-</html>
+{% endblock title %}
+{% block content %}
+	<h1>welcome to home page</h1>
+	<p>hi..user. How do you do?</p>
+{% endblock content%}
