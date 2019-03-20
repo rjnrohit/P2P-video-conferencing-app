@@ -11,9 +11,9 @@
 	<p>hi..user. How do you do?</p>
 	<h2>posts</h2>
 	{% for post in posts %}
-		<h3>{{post[author]}}</h3>
-		<p>{{post[title]}}</p>
-		<p>{{post[date_potsed]}}</p>
-		<p>{{post[content]}}</p>
+		<h3>{{ post['author'] }}</h3>
+		<p>{{ post['post_title'] }}</p>
+		<p>{{ post['date_posted'] }}</p>
+		<p>{{ post['content'] }}</p>
 	{% endfor %}
 {% endblock content%}
