@@ -13,23 +13,31 @@ posts=[
 	'author' : 'rohit ranjan',\
 	'post_title' :'about air strike',\
 	'date_posted' :'22 apr 2019',\
-	'content' : 'in reply , india gives air strikes to pak terrorists'
+	'content' : 'in reply , india gave air strikes to pak terrorists'
 	}
 ]
-@app.route("/")
 @app.route("/home")
 def home():
-	return render_template('home.html',posts=posts)
+	form = AboutForm()
+	return render_template('home.html',posts=posts,form= form)
 @app.route("/about/")
 def about():
 	return render_template('about.html')
-@app.route('/register')
+@app.route('/register',methods=['GET','POST'])
 def register():
 	form = RegistrationForm()
+	if form.validate_on_submit():
+		flash(f'account created successfully for {form.username.data}!','success')
+		return redirect(url_for('login'))
+
 	return render_template('register.html',title='register',form=form)
-@app.route('/login')
+@app.route('/login',methods=['GET','POST'])
+@app.route("/",methods=['GET','POST'])
 def login():
 	form = LoginForm()
+	if form.validate_on_submit():
+		flash(f'logged in successfully {form.email.data}!','success')
+		return redirect(url_for('home'))
 	return render_template('login.html',title='login',form=form)
 if __name__=='__main__':
 	app.run(debug=True)

@@ -16,4 +16,14 @@
 		<p>{{ post['date_posted'] }}</p>
 		<p>{{ post['content'] }}</p>
 	{% endfor %}
+	<div class="content-section">
+		<form  action="{{ url_for('about') }}">
+			<div class ="form-group">
+				{{ form.submit(class="btn btn-outline-info") }}
+			</div>
+
+		</form>
+
+	</div>
 {% endblock content%}
+

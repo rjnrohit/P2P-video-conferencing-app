@@ -11,11 +11,29 @@
 				</legend>
 				<div class="form-group">
 					{{ form.email.label(class="form-control-label") }}
-					{{ form.email(class="form-control-lg") }}
+					{% if form.email.errors %}
+						{{ form.email(class = "form-control-label") }}
+						<div class= "invalid-feedback">
+							{% for error in form.email.errors %}
+								<span> error - {{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.email(class="form-control-lg") }}	
+					{% endif %}
 				</div>
 				<div class="form-group">
 					{{ form.password.label(class="form-control-label") }}
-					{{ form.password(class="form-control-lg") }}
+					{% if form.password.errors %}
+						{{ form.password(class = "form-control-label") }}
+						<div class= "invalid-feedback">
+							{% for error in form.password.errors %}
+								<span> error - {{ error }}</span>
+							{% endfor %}
+						</div>
+					{% else %}
+						{{ form.password(class="form-control-lg") }}	
+					{% endif %}
 				</div>
 			</fieldset>
 			<div class ="form-group">
@@ -27,7 +45,7 @@
 	</div>
 	<div class ="border-top pt-3">
 		<small class="text-muted">
-			Don't have an account? Click here to<a class ="ml-2" href="{{ url_for('login') }}"> register </a>
+			Don't have an account? Click here to<a class ="ml-2" href="{{ url_for('register') }}"> register </a>
 		</small>
 	</div>
 {% endblock content %}
