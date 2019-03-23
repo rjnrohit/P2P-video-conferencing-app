@@ -1,5 +1,6 @@
 from flask import *
 from forms import *
+from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
 app.config['SECRET_KEY']='c54c32b97493a7ec67c8af77'
 posts=[
