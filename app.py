@@ -1,8 +1,34 @@
 from flask import *
 from forms import *
+from datetime import *
 from flask_sqlalchemy import SQLAlchemy
 app=Flask(__name__)
+
+
 app.config['SECRET_KEY']='c54c32b97493a7ec67c8af77'
+app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
+
+db = SQLAlchemy(app)
+
+class User(db.Model):
+	user_id = db.Column(db.Integer, primary_key = True)
+	username = db.Column(db.String(20), unique = True , nullable = False)
+	email =  db.Column(db.String(120), unique = True , nullable = False)
+	password = db.Column(db.String(60), nullable = False)
+	posts = db.relationship('Post',backref = 'author', lazy= True)
+
+	def __repr__(self):
+		return f"User('{self.username}','{self.email}','{self.password}')"
+class Post(db.Model):
+	post_id = db.Column(db.Integer, primary_key= True)
+	title= db.Column(db.String(100), nullable = False) 
+	date_posted = db.Column(db.DateTime, nullable= False,default = datetime.now)
+	content = db.Column(db.Text , nullable = False)
+	user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
+
+	def __repr__(self):
+		return f"POST('{self.title}','{self.date_posted}')"
+
 posts=[
 	{
 	'author' : 'rajiv ranjan',\
