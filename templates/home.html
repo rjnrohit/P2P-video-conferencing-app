@@ -8,6 +8,15 @@
 {% endblock title %}
 {% block content %}
 	<h1>welcome to home page</h1>
+	<div class="content-section">
+		<form  action="{{ url_for('login') }}">
+			<div class ="form-group">
+				{{ form2.submit(class="btn btn-outline-info") }}
+			</div>
+
+		</form>
+
+	</div>
 	<p>hi..user. How do you do?</p>
 	<h2>posts</h2>
 	{% for post in posts %}
@@ -19,11 +28,12 @@
 	<div class="content-section">
 		<form  action="{{ url_for('about') }}">
 			<div class ="form-group">
-				{{ form.submit(class="btn btn-outline-info") }}
+				{{ form1.submit(class="btn btn-outline-info") }}
 			</div>
 
 		</form>
 
 	</div>
+	
 {% endblock content%}
 

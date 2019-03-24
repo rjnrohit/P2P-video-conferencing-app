@@ -21,6 +21,9 @@
 					{% else %}
 						{{ form.username(class="form-control-lg") }}	
 					{% endif %}
+					{% if error1 %}
+						<span> username error - {{ error1}} </span>
+					{% endif %}
 				</div>
 				<div class="form-group">
 					{{ form.email.label(class="form-control-label") }}
@@ -33,6 +36,9 @@
 						</div>
 					{% else %}
 						{{ form.email(class="form-control-lg") }}	
+					{% endif %}
+					{% if error2 %}
+						<span> email error - {{ error2}} </span>
 					{% endif %}
 				</div>
 				<div class="form-group">
