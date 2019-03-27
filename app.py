@@ -35,20 +35,7 @@ class Post(db.Model):
 
 bcrypt = Bcrypt(app)
 
-posts=[
-	{
-	'author' : 'rajiv ranjan',\
-	'post_title': 'about pulwama',\
-	'date_posted' : '21 apr 2019',\
-	'content' : 'pak terrorists attacked on indian army in pulwama at 31st feb'
-	},\
-	{
-	'author' : 'rohit ranjan',\
-	'post_title' :'about air strike',\
-	'date_posted' :'22 apr 2019',\
-	'content' : 'in reply , india gave air strikes to pak terrorists'
-	}
-]
+
 
 
 
@@ -58,15 +45,31 @@ def load_user(user_id):
 	return User.query.get(int(user_id))
 
 
+@app.route("/home/")
+@app.route("/home/<current_username>")
 
-@app.route("/home")
-def home():
+def home(current_username = None):
+	if User.query.filter_by(username = current_username).first():
+		current_username = current_username = User.query.filter_by(username = current_username).first().username
+	else :
+		current_username = None
+	print(current_username)
 	form1 = AboutForm()
 	form2 = LogoutForm()
-	return render_template('home.html',posts=posts,form1= form1, form2= form2)
+	form3 = LoginForm()
+	return render_template('home.html',form1= form1,current_username = current_username, form2= form2, form3 = form3)
 @app.route("/about/")
-def about():
-	return render_template('about.html')
+@app.route("/about/<current_username>")
+def about(current_username = None):
+	if User.query.filter_by(username = current_username).first():
+		current_username = current_username = User.query.filter_by(username = current_username).first().username
+	else :
+		current_username = None
+	print(current_username)
+	form1 = LogoutForm()
+	form2 = HomeForm()
+	form3 = LoginForm()
+	return render_template('about.html',form3 = form3,current_username = current_username,form1= form1, form2= form2)
 @app.route('/register',methods=['GET','POST'])
 def register():
 	print("hello")
@@ -104,9 +107,10 @@ def login():
 		check_existence = User.query.filter_by(email = form.email.data).first()
 		if check_existence and bcrypt.check_password_hash(check_existence.password,form.password.data):
 			check_existence.id = check_existence.user_id
-			login_user(check_existence, remember = False)
+			a = login_user(check_existence, remember = False)
+			print(a,2)
 			flash(f'logged in successfully {form.email.data}!','success')
-			return redirect(url_for('home'))
+			return redirect(url_for('home', current_username = check_existence.username))
 		else:
 			flash('Login unsuccessful. Please check your email and password that you entered','danger')
 	return render_template('login.html',title='login',form=form)

@@ -7,33 +7,43 @@
 	{% endif %}
 {% endblock title %}
 {% block content %}
-	<h1>welcome to home page</h1>
-	<div class="content-section">
-		<form  action="{{ url_for('login') }}">
-			<div class ="form-group">
-				{{ form2.submit(class="btn btn-outline-info") }}
-			</div>
+	
+	
+	{% if current_username %}
+		<p1>current user - {{ current_username }}</p1>
+		<h1>welcome to home page</h1>
+		<div class="content-section">
+			<form  action="{{ url_for('login') }}">
+				<div class ="form-group">
+					{{ form2.submit(class="btn btn-outline-info") }}
+				</div>
 
-		</form>
+			</form>
 
-	</div>
-	<p>hi..user. How do you do?</p>
-	<h2>posts</h2>
-	{% for post in posts %}
-		<h3>{{ post['author'] }}</h3>
-		<p>{{ post['post_title'] }}</p>
-		<p>{{ post['date_posted'] }}</p>
-		<p>{{ post['content'] }}</p>
-	{% endfor %}
-	<div class="content-section">
-		<form  action="{{ url_for('about') }}">
-			<div class ="form-group">
-				{{ form1.submit(class="btn btn-outline-info") }}
-			</div>
+		</div>
+		<p>hi..user. How do you do?</p>
+		<div class="content-section">
+			<form  action="{{ url_for('about',current_username = current_username) }}">
+				<div class ="form-group">
+					{{ form1.submit(class="btn btn-outline-info") }}
+				</div>
 
-		</form>
+			</form>
 
-	</div>
+		</div>
+	{% else %}
+		<p> it seems that you have not logged in !!</p>
+		<div class="content-section">
+			<form  action="{{ url_for('login') }}">
+				<div class ="form-group">
+					<p>Please click here to </p>{{ form3.submit(class="btn btn-outline-info") }}
+				</div>
+
+			</form>
+
+		</div>
+	{% endif %}
+
 	
 {% endblock content%}
 

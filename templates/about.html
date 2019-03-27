@@ -1,12 +1,48 @@
 {% extends 'layout.html' %}
-{% block title %}
-	{% if title %}
-		<title>about-{{title}}</title>
-	{% else %}
-		<title>about page</title>
-	{% endif %}
-{% endblock title %}
-{% block content %}
-	<h1>welcome to about page</h1>
-	<p>hi..user. How do you do?</p>
-{% endblock content%}
+	{% block title %}
+		{% if title %}
+			<title>about-{{title}}</title>
+		{% else %}
+			<title>about page</title>
+		{% endif %}
+	{% endblock title %}
+	{% block content %}
+		{% if current_username %}
+				<p> current user - {{ current_username  }}</p>
+				<h1>welcome to about page</h1>
+				<p>hi..user. How do you do?</p>
+			
+			
+				<div class="content-section">
+					<form  action="{{ url_for('home',current_username = current_username) }}">
+						<div class ="form-group">
+							{{ form2.submit(class="btn btn-outline-info") }}
+						</div>
+
+					</form>
+
+				</div>
+				<div class="content-section">
+					<form  action="{{ url_for('login') }}">
+						<div class ="form-group">
+							{{ form1.submit(class="btn btn-outline-info") }}
+						</div>
+
+					</form>
+
+				</div>
+	    {% else %}
+			<p> it seems that you have not logged in !!</p>
+				<div class="content-section">
+					<form  action="{{ url_for('login') }}">
+						<div class ="form-group">
+							<p>Please click here to </p>{{ form3.submit(class="btn btn-outline-info") }}
+						</div>
+
+					</form>
+
+				</div>
+			
+					
+		{% endif %}
+	{% endblock content %}

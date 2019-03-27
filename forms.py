@@ -12,10 +12,9 @@ class RegistrationForm(FlaskForm):
 	password = PasswordField('password',validators=[DataRequired()])
 	confirm_password = PasswordField('confirm_password',validators=[DataRequired(),EqualTo('password')])
 	submit = SubmitField('Sign Up')
-	"""def validate_username(self, field):
-		if True : 
-			raise ValidationError('Validation Message')"""
 class AboutForm(FlaskForm):
 	submit= SubmitField('About')
 class LogoutForm(FlaskForm):
 	submit = SubmitField('log out')
+class HomeForm(FlaskForm):
+	submit = SubmitField('home')
