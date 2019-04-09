@@ -66,10 +66,10 @@ def about(current_username = None):
 	else :
 		current_username = None
 	print(current_username)
-	form1 = LogoutForm()
-	form2 = HomeForm()
-	form3 = LoginForm()
-	return render_template('about.html',form3 = form3,current_username = current_username,form1= form1, form2= form2)
+	Logout_Form = LogoutForm()
+	Home_Form = HomeForm()
+	Login_Form = LoginForm()
+	return render_template('about.html',current_username = current_username,LogoutForm= Logout_Form,LoginForm = Login_Form,HomeForm = Home_Form)
 @app.route('/register',methods=['GET','POST'])
 def register():
 	print("hello")
@@ -92,7 +92,7 @@ def register():
 				error1 = None
 			if check_email :
 				error2 = 'email already taken'
-				print(error2)
+				#print(error2)
 			else : 
 				error2= None
 			
@@ -112,7 +112,11 @@ def login():
 			flash(f'logged in successfully {form.email.data}!','success')
 			return redirect(url_for('home', current_username = check_existence.username))
 		else:
-			flash('Login unsuccessful. Please check your email and password that you entered','danger')
+			 if check_existence:
+			 	print(User.query.filter_by(email = form.email.data),1)
+			 	flash('Login unsuccessful. Please check your password that you entered','danger')
+			 else :
+			 	flash('Login unsuccessful. email not registered, please click at register ','danger')
 	return render_template('login.html',title='login',form=form)
 if __name__=='__main__':
 	app.run(debug=True)

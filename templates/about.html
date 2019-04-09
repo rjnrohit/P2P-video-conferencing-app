@@ -16,7 +16,7 @@
 				<div class="content-section">
 					<form  action="{{ url_for('home',current_username = current_username) }}">
 						<div class ="form-group">
-							{{ form2.submit(class="btn btn-outline-info") }}
+							{{ HomeForm.submit(class="btn btn-outline-info") }}
 						</div>
 
 					</form>
@@ -25,7 +25,7 @@
 				<div class="content-section">
 					<form  action="{{ url_for('login') }}">
 						<div class ="form-group">
-							{{ form1.submit(class="btn btn-outline-info") }}
+							{{ LogoutForm.submit(class="btn btn-outline-info") }}
 						</div>
 
 					</form>
@@ -36,7 +36,7 @@
 				<div class="content-section">
 					<form  action="{{ url_for('login') }}">
 						<div class ="form-group">
-							<p>Please click here to </p>{{ form3.submit(class="btn btn-outline-info") }}
+							<p>Please click here to </p>{{ LoginForm.submit(class="btn btn-outline-info") }}
 						</div>
 
 					</form>
