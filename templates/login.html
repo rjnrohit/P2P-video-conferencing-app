@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} 
+{% block title %}
 	<title> {{ title }}</title>
 {% endblock title %}
 {% block content %}
@@ -7,7 +7,7 @@
 		<form method ="POST" action="">
 			{{ form.hidden_tag() }}
 			<fieldset class="form-group ">
-				<legend class="border-bottom mb-4">welcome to login page
+				<legend class="border-bottom mb-4">login page
 				</legend>
 				<div class="form-group">
 					{{ form.email.label(class="form-control-label") }}
@@ -19,7 +19,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.email(class="form-control-lg") }}	
+						{{ form.email(class="form-control-lg") }}
 					{% endif %}
 				</div>
 				<div class="form-group">
@@ -32,7 +32,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.password(class="form-control-lg") }}	
+						{{ form.password(class="form-control-lg") }}
 					{% endif %}
 				</div>
 			</fieldset>
