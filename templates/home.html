@@ -11,11 +11,11 @@
 	
 	{% if current_username %}
 		<p1>current user - {{ current_username }}</p1>
-		<h1>welcome to home page</h1>
+		<h1>HOME PAGE</h1>
 		<div class="content-section">
-			<form  action="{{ url_for('login') }}">
+			<form  action="{{ url_for('logout') }}">
 				<div class ="form-group">
-					{{ form2.submit(class="btn btn-outline-info") }}
+					{{ LogoutForm.submit(class="btn btn-outline-info") }}
 				</div>
 
 			</form>
@@ -25,7 +25,7 @@
 		<div class="content-section">
 			<form  action="{{ url_for('about',current_username = current_username) }}">
 				<div class ="form-group">
-					{{ form1.submit(class="btn btn-outline-info") }}
+					{{ AboutForm.submit(class="btn btn-outline-info") }}
 				</div>
 
 			</form>
@@ -36,7 +36,7 @@
 		<div class="content-section">
 			<form  action="{{ url_for('login') }}">
 				<div class ="form-group">
-					<p>Please click here to </p>{{ form3.submit(class="btn btn-outline-info") }}
+					<p>Please click here to </p>{{ LoginForm.submit(class="btn btn-outline-info") }}
 				</div>
 
 			</form>
