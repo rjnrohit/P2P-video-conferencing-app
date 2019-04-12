@@ -9,7 +9,7 @@
 	{% block content %}
 		{% if current_username %}
 				<p> current user - {{ current_username  }}</p>
-				<h1>welcome to about page</h1>
+				<h1>ABOUT PAGE</h1> 
 				<p>hi..user. How do you do?</p>
 			
 			
@@ -23,7 +23,7 @@
 
 				</div>
 				<div class="content-section">
-					<form  action="{{ url_for('login') }}">
+					<form  action="{{ url_for('logout') }}">
 						<div class ="form-group">
 							{{ LogoutForm.submit(class="btn btn-outline-info") }}
 						</div>
