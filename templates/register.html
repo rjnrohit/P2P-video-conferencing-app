@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} 
+{% block title %}
 	<title> {{ title }}</title>
 {% endblock title %}
 {% block content %}
@@ -19,7 +19,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.username(class="form-control-lg") }}	
+						{{ form.username(class="form-control-lg") }}
 					{% endif %}
 					{% if error1 %}
 						<span> username error - {{ error1}} </span>
@@ -35,7 +35,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.email(class="form-control-lg") }}	
+						{{ form.email(class="form-control-lg") }}
 					{% endif %}
 					{% if error2 %}
 						<span> email error - {{ error2}} </span>
@@ -51,7 +51,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.password(class="form-control-lg") }}	
+						{{ form.password(class="form-control-lg") }}
 					{% endif %}
 				</div>
 				<div class="form-group">
@@ -64,7 +64,7 @@
 							{% endfor %}
 						</div>
 					{% else %}
-						{{ form.confirm_password(class="form-control-lg") }}	
+						{{ form.confirm_password(class="form-control-lg") }}
 					{% endif %}
 				</div>
 			</fieldset>
