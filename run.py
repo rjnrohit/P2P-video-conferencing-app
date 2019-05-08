@@ -4,13 +4,13 @@ from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user,current_user,logout_user
+from flask_socketio import SocketIO
 
 app=Flask(__name__)
-
-
 app.config['SECRET_KEY']='c54c32b97493a7ec67c8af77'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 
+socketio = SocketIO(app)
 db = SQLAlchemy(app)
 
 class User(db.Model, UserMixin):
@@ -140,4 +140,5 @@ def logout():
 
 if __name__=='__main__':
 	db.create_all()
-	app.run(debug=False)
+	#app.run(debug=False)
+	socketio.run(app)
