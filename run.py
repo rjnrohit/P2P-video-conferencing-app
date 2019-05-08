@@ -64,42 +64,64 @@ def load_user(user_id):
 
 
 def home(current_username = None):
+	""" if user is authenticated
+		then render into home page 
+		else direct into login page"""
 	if current_user.is_authenticated :
+		#A query to find username with given string
 		if User.query.filter_by(username = current_username).first():
 			current_username = current_username = User.query.filter_by(username = current_username).first().username
 		else :
 			current_username = None
+		# here three were created for navigation to different pages through home pages
 		Logout_Form = LogoutForm()
 		About_Form = AboutForm()
 		Login_Form = LoginForm()
 		return render_template('home.html',current_username = current_username,LogoutForm= Logout_Form,LoginForm = Login_Form,AboutForm = About_Form)
 	return redirect(url_for('login'))
+
+
+
 @app.route("/about/")
 @app.route("/about/<current_username>")
 
 
 def about(current_username = None):
+	# same comment as about
 	if current_user.is_authenticated :
 		if User.query.filter_by(username = current_username).first():
 			current_username = current_username = User.query.filter_by(username = current_username).first().username
 		else :
 			current_username = None
 		print(current_username)
+		#again forms are created for same as written in above block in home
 		Logout_Form = LogoutForm()
 		Home_Form = HomeForm()
 		Login_Form = LoginForm()
 		return render_template('about.html',current_username = current_username,LogoutForm= Logout_Form,LoginForm = Login_Form,HomeForm = Home_Form)
 	return redirect(url_for('login'))
+
+
+
 @app.route('/register',methods=['GET','POST'])
+
+
+
+
 def register():
+	# user authentication
 	if current_user.is_authenticated :
 		print(current_user)
 		return redirect (url_for('home',current_username = current_user.username))
 	form = RegistrationForm()
+	#validate all entered data before submmit action
 	if form.validate_on_submit():
+		#hash password
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
 		user = User(username = form.username.data, email = form.email.data, password = hashed_password)
+		#check existence of user in database before adding it into database
 		check_username = User.query.filter_by(username = user.username).first()
+		#check existence of user in database before adding it into database
 		check_email = User.query.filter_by(email = user.email).first()
 		print(form.password.label())
 		if check_username == None and check_email == None:
@@ -115,15 +137,20 @@ def register():
 				error1 = None
 			if check_email :
 				error2 = 'email already taken'
-				#print(error2)
 			else :
 				error2= None
 
 			return render_template('register.html',title='register',form=form,error1 = error1,error2 = error2)
 
 	return render_template('register.html',title='register',form=form)
+
+
+
 @app.route('/login',methods=['GET','POST'])
 @app.route("/",methods=['GET','POST'])
+
+
+
 def login():
 	if current_user.is_authenticated :
 		print(current_user,current_user.is_authenticated)
