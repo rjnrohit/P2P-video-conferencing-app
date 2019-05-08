@@ -5,14 +5,20 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user,current_user,logout_user
 from flask_socketio import SocketIO
-
+#initiating flask app using Flask class
 app=Flask(__name__)
+
+#add secret key to app
 app.config['SECRET_KEY']='c54c32b97493a7ec67c8af77'
+
+
+#add url for site.db (Database)
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
 
-socketio = SocketIO(app)
-db = SQLAlchemy(app)
 
+#initiating app with flask Sqlalchemy
+db = SQLAlchemy(app)
+#creating data base models
 class User(db.Model, UserMixin):
 	user_id = db.Column(db.Integer, primary_key = True)
 	username = db.Column(db.String(20), unique = True , nullable = False)
@@ -33,17 +39,25 @@ class Post(db.Model):
 		return f"POST('{self.title}','{self.date_posted}')"
 
 
+#add features of socket.io in flask app
+socketio = SocketIO(app)
+
+
+
+#Bcrypt class is used for password encryption and decryption
 bcrypt = Bcrypt(app)
 
 
 
 
-
+#make app compatible with flask-login
 login_manager = LoginManager(app)
 @login_manager.user_loader
 def load_user(user_id):
 	return User.query.get(int(user_id))
-
+"""adding routes to home page
+	-we can also access to home
+	 page by another route home/username"""
 
 @app.route("/home/")
 @app.route("/home/<current_username>")
@@ -55,7 +69,6 @@ def home(current_username = None):
 			current_username = current_username = User.query.filter_by(username = current_username).first().username
 		else :
 			current_username = None
-		#print(current_username)
 		Logout_Form = LogoutForm()
 		About_Form = AboutForm()
 		Login_Form = LoginForm()
@@ -82,7 +95,6 @@ def register():
 	if current_user.is_authenticated :
 		print(current_user)
 		return redirect (url_for('home',current_username = current_user.username))
-	#print("hello")
 	form = RegistrationForm()
 	if form.validate_on_submit():
 		hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
